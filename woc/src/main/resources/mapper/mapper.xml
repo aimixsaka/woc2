@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yanfang.woc.mapper.AccountMapper">
+
+    <!--获取用户总数-->
+    <select id="getAmountOfAccounts" resultType="Integer">
+        select count(*) from admin.account
+    </select>
+
+    <!--根据用户名删除用户-->
+    <delete id="deleteAccountByName">
+        delete from admin.account where username = #{userName}
+    </delete>
+
+    <!--注册用户-->
+    <insert id="registerNewAccount">
+        insert into admin.account(username, password, email) values (#{userName}, #{userPwd}, #{userEmail})
+    </insert>
+
+    <!--登录用户-->
+    <select id="loginAccount" resultType="Integer">
+        select role from admin.account where username = #{userName} and email = #{Email} and password = #{Password}
+    </select>
+
+    <!--根据username查询密码以核验-->
+    <select id="checkPwd" resultType="String">
+        select password from admin.account where username = #{userName}
+    </select>
+
+    <!--超级管理员查看指定用户信息-->
+    <select id="checkAccount" resultType="com.yanfang.woc.entity.Account">
+        select * from admin.account where username = #{username}
+    </select>
+
+    <!--获取用户的权限类型-->
+    <select id="checkRole" resultType="Integer">
+        select role from admin.account where username = #{uname}
+    </select>
+
+</mapper>
